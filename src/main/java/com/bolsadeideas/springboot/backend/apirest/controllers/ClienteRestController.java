@@ -3,11 +3,15 @@ package com.bolsadeideas.springboot.backend.apirest.controllers;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
+
+import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -53,9 +57,16 @@ public class ClienteRestController {
 	}
 
 	@PostMapping("/clientes")
-	public ResponseEntity<?> create(@RequestBody Cliente cliente) {
+	public ResponseEntity<?> create(@Valid @RequestBody Cliente cliente, BindingResult result) {
 		Map<String, Object> response = new HashMap<>();
 		Cliente clienteNew = null;
+		if (result.hasErrors()) {
+			List<String> errors = result.getFieldErrors().stream()
+					.map(error -> "El campo '".concat(error.getField()).concat("' ").concat(error.getDefaultMessage()))
+					.collect(Collectors.toList());
+			response.put("errors", errors);
+			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.BAD_REQUEST);
+		}
 		try {
 			clienteNew = this.clienteService.save(cliente);
 		} catch (DataAccessException e) {
@@ -69,10 +80,18 @@ public class ClienteRestController {
 	}
 
 	@PutMapping("/clientes/{id}")
-	public ResponseEntity<?> update(@RequestBody Cliente cliente, @PathVariable Long id) {
+	public ResponseEntity<?> update(@Valid @RequestBody Cliente cliente, BindingResult result, @PathVariable Long id) {
 		Map<String, Object> response = new HashMap<>();
 		Cliente clienteActual = null;
 		Cliente clienteUpdated = null;
+		
+		if (result.hasErrors()) {
+			List<String> errors = result.getFieldErrors().stream()
+					.map(error -> "El campo '".concat(error.getField()).concat("' ").concat(error.getDefaultMessage()))
+					.collect(Collectors.toList());
+			response.put("errors", errors);
+			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.BAD_REQUEST);
+		}
 
 		try {
 			clienteActual = this.clienteService.findById(id);
