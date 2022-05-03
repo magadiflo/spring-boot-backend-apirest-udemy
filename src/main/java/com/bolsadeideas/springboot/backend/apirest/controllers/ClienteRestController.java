@@ -70,13 +70,40 @@ public class ClienteRestController {
 	}
 
 	@PutMapping("/clientes/{id}")
-	@ResponseStatus(HttpStatus.CREATED)
-	public Cliente update(@RequestBody Cliente cliente, @PathVariable Long id) {
-		Cliente clienteActual = this.clienteService.findById(id);
-		clienteActual.setNombre(cliente.getNombre());
-		clienteActual.setApellido(cliente.getApellido());
-		clienteActual.setEmail(cliente.getEmail());
-		return this.clienteService.save(clienteActual);
+	public ResponseEntity<?> update(@RequestBody Cliente cliente, @PathVariable Long id) {
+		Map<String, Object> response = new HashMap<>();
+		Cliente clienteActual = null;
+		Cliente clienteUpdated = null;
+
+		try {
+			clienteActual = this.clienteService.findById(id);
+		} catch (DataAccessException e) {
+			response.put("mensaje", "Error al realizar la consulta en la BD para actualizar al cliente");
+			response.put("error", e.getMessage().concat(": ").concat(e.getMostSpecificCause().getMessage()));
+			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+
+		if (clienteActual == null) {
+			response.put("mensaje", "Imposible actualizar. Cliente ID: ".concat(id.toString())
+					.concat(" no existe en la Base de Datos"));
+			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.NOT_FOUND);
+		}
+
+		try {
+			clienteActual.setNombre(cliente.getNombre());
+			clienteActual.setApellido(cliente.getApellido());
+			clienteActual.setEmail(cliente.getEmail());
+
+			clienteUpdated = this.clienteService.save(clienteActual);
+		} catch (DataAccessException e) {
+			response.put("mensaje", "Error al actualizar en la base de datos");
+			response.put("error", e.getMessage().concat(": ").concat(e.getMostSpecificCause().getMessage()));
+			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+
+		response.put("cliente", clienteUpdated);
+		response.put("mensaje", "Se actualizaron los datos del cliente!");
+		return new ResponseEntity<Map<String, Object>>(response, HttpStatus.CREATED);
 	}
 
 	@DeleteMapping("/clientes/{id}")
