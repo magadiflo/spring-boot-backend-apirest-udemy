@@ -120,6 +120,7 @@ public class ClienteRestController {
 			clienteActual.setNombre(cliente.getNombre());
 			clienteActual.setApellido(cliente.getApellido());
 			clienteActual.setEmail(cliente.getEmail());
+			clienteActual.setCreateAt(cliente.getCreateAt());
 
 			clienteUpdated = this.clienteService.save(clienteActual);
 		} catch (DataAccessException e) {
