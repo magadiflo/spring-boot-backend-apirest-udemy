@@ -14,6 +14,8 @@ import java.util.stream.Collectors;
 
 import javax.validation.Valid;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.UrlResource;
@@ -44,6 +46,8 @@ import com.bolsadeideas.springboot.backend.apirest.models.services.IClienteServi
 @RequestMapping("/api")
 @CrossOrigin(origins = { "http://localhost:4200" })
 public class ClienteRestController {
+
+	private final Logger log = LoggerFactory.getLogger(ClienteRestController.class);
 
 	@Autowired
 	private IClienteService clienteService;
@@ -187,6 +191,9 @@ public class ClienteRestController {
 			String nuevoNombreArchivo = uuid.toString().concat(extensionArchivo);
 
 			Path rutaArchivo = Paths.get("uploads").resolve(nuevoNombreArchivo).toAbsolutePath();
+
+			this.log.info(rutaArchivo.toString());
+
 			try {
 				Files.copy(archivo.getInputStream(), rutaArchivo);
 			} catch (IOException e) {
@@ -220,8 +227,10 @@ public class ClienteRestController {
 		Path rutaArchivo = Paths.get("uploads").resolve(nombreFoto).toAbsolutePath();
 		Resource recurso = null;
 
+		this.log.info(rutaArchivo.toString());
+
 		try {
-			//Foto
+			// Foto
 			recurso = new UrlResource(rutaArchivo.toUri());
 		} catch (MalformedURLException e) {
 			e.printStackTrace();
@@ -231,9 +240,9 @@ public class ClienteRestController {
 			throw new RuntimeException("Error, no se pudo cargar la imagen: ".concat(nombreFoto));
 		}
 
-		//Para poder forzar descargar de la foto y se vea en la etiqueta <img src="">
+		// Para poder forzar descargar de la foto y se vea en la etiqueta <img src="">
 		HttpHeaders cabecera = new HttpHeaders();
-		cabecera.add(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + recurso.getFilename() + "\""); 
+		cabecera.add(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + recurso.getFilename() + "\"");
 
 		return new ResponseEntity<Resource>(recurso, cabecera, HttpStatus.OK);
 	}
