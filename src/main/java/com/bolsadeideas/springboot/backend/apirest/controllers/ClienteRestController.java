@@ -237,7 +237,16 @@ public class ClienteRestController {
 		}
 
 		if (!recurso.exists() && !recurso.isReadable()) {
-			throw new RuntimeException("Error, no se pudo cargar la imagen: ".concat(nombreFoto));
+			rutaArchivo = Paths.get("src/main/resources/static/images").resolve("no-image.png").toAbsolutePath();
+			try {
+				// Foto
+				recurso = new UrlResource(rutaArchivo.toUri());
+			} catch (MalformedURLException e) {
+				e.printStackTrace();
+			}
+
+			this.log.error("Error, no se pudo cargar la imagen: ".concat(nombreFoto)
+					.concat(", se muestra en reemplazo la imagen por defecto!"));
 		}
 
 		// Para poder forzar descargar de la foto y se vea en la etiqueta <img src="">
