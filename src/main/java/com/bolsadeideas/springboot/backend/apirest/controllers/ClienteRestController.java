@@ -7,6 +7,7 @@ import java.nio.file.Paths;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
 import java.util.stream.Collectors;
 
 import javax.validation.Valid;
@@ -162,21 +163,27 @@ public class ClienteRestController {
 
 		if (!archivo.isEmpty()) {
 			String nombreArchivo = archivo.getOriginalFilename();
-			Path rutaArchivo = Paths.get("uploads").resolve(nombreArchivo).toAbsolutePath();
+
+			int lastIndex = nombreArchivo.lastIndexOf(".");
+			String extensionArchivo = nombreArchivo.substring(lastIndex);
+			UUID uuid = UUID.randomUUID();
+			String nuevoNombreArchivo = uuid.toString().concat(extensionArchivo);
+
+			Path rutaArchivo = Paths.get("uploads").resolve(nuevoNombreArchivo).toAbsolutePath();
 			try {
 				Files.copy(archivo.getInputStream(), rutaArchivo);
 			} catch (IOException e) {
 				e.printStackTrace();
-				response.put("mensaje", "Error al subir imagen '".concat(nombreArchivo).concat("'"));
+				response.put("mensaje", "Error al subir imagen '".concat(nuevoNombreArchivo).concat("'"));
 				response.put("error", e.getMessage().concat(": ").concat(e.getCause().getMessage()));
 				return new ResponseEntity<Map<String, Object>>(response, HttpStatus.INTERNAL_SERVER_ERROR);
 			}
 
-			cliente.setFoto(nombreArchivo);
+			cliente.setFoto(nuevoNombreArchivo);
 			this.clienteService.save(cliente);
 
 			response.put("cliente", cliente);
-			response.put("mensaje", "Has subido correctamente la imagen '".concat(nombreArchivo).concat("'"));
+			response.put("mensaje", "Has subido correctamente la imagen '".concat(nuevoNombreArchivo).concat("'"));
 		}
 
 		return new ResponseEntity<Map<String, Object>>(response, HttpStatus.CREATED);
