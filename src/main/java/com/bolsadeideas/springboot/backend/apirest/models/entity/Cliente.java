@@ -57,6 +57,7 @@ public class Cliente implements Serializable {
 	 * atributos debemos quitarlos (omitir del json), por eso usamos
 	 * el @JsonIgnoreProperties. Si no ignoramos esos atributos, lanzará un error
 	 */
+	@NotNull
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "region_id")
 	@JsonIgnoreProperties({ "hibernateLazyInitializer", "handler" })
