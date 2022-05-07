@@ -22,7 +22,7 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
 	@Override
 	@Autowired
 	protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-		auth.userDetailsService(this.usuarioService).passwordEncoder(this.passwordEncoder());
+		auth.userDetailsService(this.usuarioService).passwordEncoder(SpringSecurityConfig.passwordEncoder());
 	}
 
 }
