@@ -1,3 +1,14 @@
+/* Populate usuarios y roles y tabla intermedia */
+INSERT INTO usuarios(username, password, enabled) VALUES('magadiflo', '$2a$10$554TWNuKYQ0DDeu.20xrk.s85MtwGdIJIHgOpbXgA8nYWeFztvJri', 1);
+INSERT INTO usuarios(username, password, enabled) VALUES('admin', '$2a$10$uLOSa5tJMMcHBw2Jjj3bFefQYQmm2GcEr79qeTe6AvZhj/X/MPtf2', 1);
+
+INSERT INTO roles(nombre) VALUES('ROLE_USER');
+INSERT INTO roles(nombre) VALUES('ROLE_ADMIN');
+
+INSERT INTO usuarios_roles(usuario_id, rol_id) VALUES(1, 1);
+INSERT INTO usuarios_roles(usuario_id, rol_id) VALUES(2, 2);
+INSERT INTO usuarios_roles(usuario_id, rol_id) VALUES(2, 1);
+
 /* Populate tabla regiones */
 INSERT INTO regiones (id, nombre) VALUES(1, 'Sudamérica');
 INSERT INTO regiones (id, nombre) VALUES(2, 'Centroamérica');
