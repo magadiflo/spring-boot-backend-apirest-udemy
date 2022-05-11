@@ -1,6 +1,6 @@
 /* Populate usuarios y roles y tabla intermedia */
-INSERT INTO usuarios(username, password, enabled) VALUES('magadiflo', '$2a$10$554TWNuKYQ0DDeu.20xrk.s85MtwGdIJIHgOpbXgA8nYWeFztvJri', 1);
-INSERT INTO usuarios(username, password, enabled) VALUES('admin', '$2a$10$uLOSa5tJMMcHBw2Jjj3bFefQYQmm2GcEr79qeTe6AvZhj/X/MPtf2', 1);
+INSERT INTO usuarios(username, password, enabled, nombre, apellido, email) VALUES('magadiflo', '$2a$10$554TWNuKYQ0DDeu.20xrk.s85MtwGdIJIHgOpbXgA8nYWeFztvJri', 1, 'Martín', 'Díaz', 'marti_df@hotmail.com');
+INSERT INTO usuarios(username, password, enabled, nombre, apellido, email) VALUES('admin', '$2a$10$uLOSa5tJMMcHBw2Jjj3bFefQYQmm2GcEr79qeTe6AvZhj/X/MPtf2', 1, 'John', 'Doe', 'john.doe@angular.com');
 
 INSERT INTO roles(nombre) VALUES('ROLE_USER');
 INSERT INTO roles(nombre) VALUES('ROLE_ADMIN');
