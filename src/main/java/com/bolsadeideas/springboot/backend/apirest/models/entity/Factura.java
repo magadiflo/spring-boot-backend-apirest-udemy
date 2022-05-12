@@ -20,6 +20,8 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 @Entity
 @Table(name = "facturas")
 public class Factura implements Serializable {
@@ -38,9 +40,14 @@ public class Factura implements Serializable {
 	@Column(name = "create_at")
 	private Date createAt;
 
+	// Cuando accedemos a una Factura, obtendremos al cliente
+	// Pero en ese cliente, tendremos un atributo facturas,
+	// el cual será ignorada (evitando el bucle)
+	@JsonIgnoreProperties({ "facturas", "hibernateLazyInitializer", "handler" })
 	@ManyToOne(fetch = FetchType.LAZY)
 	private Cliente cliente;
 
+	@JsonIgnoreProperties({ "hibernateLazyInitializer", "handler" })
 	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
 	@JoinColumn(name = "factura_id") // columna que será creado en la tabla facturas_items como llave foránea
 	private List<ItemFactura> items;

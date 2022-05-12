@@ -67,7 +67,13 @@ public class Cliente implements Serializable {
 	@JsonIgnoreProperties({ "hibernateLazyInitializer", "handler" })
 	private Region region;
 
-	//mappedBy = "cliente", para que sea bidireccional, debemos agregar el atributo cliente definido en la clase Factura
+	// mappedBy = "cliente", para que sea bidireccional, debemos agregar el atributo
+	// cliente definido en la clase Factura Cuando se acceda a la relación cliente,
+	// est podrá acceder a la lista de Facturas, pero cada lista de facturas tmb
+	// tiene un cliente,
+	// con @JsonIgnoreProperties({"cliente" }) evitamos que vuelva a llamar a
+	// clientes (evitando el bucle)
+	@JsonIgnoreProperties({ "cliente", "hibernateLazyInitializer", "handler" })
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "cliente", cascade = CascadeType.ALL)
 	private List<Factura> facturas;
 
