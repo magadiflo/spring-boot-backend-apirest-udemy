@@ -1,5 +1,7 @@
 package com.bolsadeideas.springboot.backend.apirest.controllers;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -11,6 +13,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.bolsadeideas.springboot.backend.apirest.models.entity.Factura;
+import com.bolsadeideas.springboot.backend.apirest.models.entity.Producto;
 import com.bolsadeideas.springboot.backend.apirest.models.services.IClienteService;
 
 @RestController
@@ -33,4 +36,9 @@ public class FacturaRestController {
 		this.clienteService.deleteFacturaById(id);
 	}
 
+	@GetMapping("/facturas/filtrar-productos/{termino}")
+	@ResponseStatus(code = HttpStatus.OK)
+	public List<Producto> filtrarProductos(@PathVariable String termino) {
+		return this.clienteService.findProductoByNombre(termino);
+	}
 }
