@@ -43,7 +43,7 @@ public class Factura implements Serializable {
 	// Cuando accedemos a una Factura, obtendremos al cliente
 	// Pero en ese cliente, tendremos un atributo facturas,
 	// el cual será ignorada (evitando el bucle)
-	@JsonIgnoreProperties({ "facturas", "hibernateLazyInitializer", "handler" })
+	@JsonIgnoreProperties(value = { "facturas", "hibernateLazyInitializer", "handler" }, allowSetters = true)
 	@ManyToOne(fetch = FetchType.LAZY)
 	private Cliente cliente;
 

@@ -73,7 +73,7 @@ public class Cliente implements Serializable {
 	// tiene un cliente,
 	// con @JsonIgnoreProperties({"cliente" }) evitamos que vuelva a llamar a
 	// clientes (evitando el bucle)
-	@JsonIgnoreProperties({ "cliente", "hibernateLazyInitializer", "handler" })
+	@JsonIgnoreProperties(value = { "cliente", "hibernateLazyInitializer", "handler" }, allowSetters = true)
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "cliente", cascade = CascadeType.ALL)
 	private List<Factura> facturas;
 
