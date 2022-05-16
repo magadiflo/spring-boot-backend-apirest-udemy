@@ -33,10 +33,11 @@ public class ResourceServerConfig extends ResourceServerConfigurerAdapter {
 			.and().cors().configurationSource(this.corsConfigurationSource());
 	}
 	
+	//>>> Ahora el uso del * es solo para el setAllowedOriginPatterns, es un cambio reciente en el api.
 	@Bean
 	public CorsConfigurationSource corsConfigurationSource() {
 		CorsConfiguration config = new CorsConfiguration();
-		config.setAllowedOrigins(Arrays.asList("http://localhost:4200", "*")); //Para el ejemplo, le decimos con * que acepte cualquier origen
+		config.setAllowedOrigins(Arrays.asList("http://localhost:4200", "http://localhost:80", "http://localhost"));
 		config.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "DELETE", "OPTIONS"));
 		config.setAllowCredentials(true);
 		config.setAllowedHeaders(Arrays.asList("Content-Type", "Authorization"));
