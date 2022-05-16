@@ -1,5 +1,5 @@
 /* Populate usuarios y roles y tabla intermedia */
-INSERT INTO usuarios(username, password, enabled, nombre, apellido, email) VALUES('magadiflo', '$2a$10$554TWNuKYQ0DDeu.20xrk.s85MtwGdIJIHgOpbXgA8nYWeFztvJri', 1, 'Mart√≠n', 'D√≠az', 'marti_df@hotmail.com');
+INSERT INTO usuarios(username, password, enabled, nombre, apellido, email) VALUES('magadiflo', '$2a$10$554TWNuKYQ0DDeu.20xrk.s85MtwGdIJIHgOpbXgA8nYWeFztvJri', 1, 'MartÌn', 'DÌaz', 'marti_df@hotmail.com');
 INSERT INTO usuarios(username, password, enabled, nombre, apellido, email) VALUES('admin', '$2a$10$uLOSa5tJMMcHBw2Jjj3bFefQYQmm2GcEr79qeTe6AvZhj/X/MPtf2', 1, 'John', 'Doe', 'john.doe@angular.com');
 
 INSERT INTO roles(nombre) VALUES('ROLE_USER');
@@ -10,17 +10,17 @@ INSERT INTO usuarios_roles(usuario_id, rol_id) VALUES(2, 2);
 INSERT INTO usuarios_roles(usuario_id, rol_id) VALUES(2, 1);
 
 /* Populate tabla regiones */
-INSERT INTO regiones (id, nombre) VALUES(1, 'Sudam√©rica');
-INSERT INTO regiones (id, nombre) VALUES(2, 'Centroam√©rica');
-INSERT INTO regiones (id, nombre) VALUES(3, 'Norteam√©rica');
+INSERT INTO regiones (id, nombre) VALUES(1, 'SudamÈrica');
+INSERT INTO regiones (id, nombre) VALUES(2, 'CentroamamÈrica');
+INSERT INTO regiones (id, nombre) VALUES(3, 'NorteamÈrica');
 INSERT INTO regiones (id, nombre) VALUES(4, 'Europa');
 INSERT INTO regiones (id, nombre) VALUES(5, 'Asia');
 INSERT INTO regiones (id, nombre) VALUES(6, 'Africa');
-INSERT INTO regiones (id, nombre) VALUES(7, 'Ocean√≠a');
-INSERT INTO regiones (id, nombre) VALUES(8, 'Ant√°rida');
+INSERT INTO regiones (id, nombre) VALUES(7, 'OceanÌa');
+INSERT INTO regiones (id, nombre) VALUES(8, 'Ant·rtida');
 
 /* Populate tabla clientes */
-INSERT INTO clientes (region_id, nombre, apellido, email, create_at) VALUES(1, 'Andr√©s', 'Guzm√°n', 'profesor@bolsadeideas.com', '2018-01-01');
+INSERT INTO clientes (region_id, nombre, apellido, email, create_at) VALUES(1, 'AndrÈs', 'Guzm·n', 'profesor@bolsadeideas.com', '2018-01-01');
 INSERT INTO clientes (region_id, nombre, apellido, email, create_at) VALUES(1, 'Mr. John', 'Doe', 'john.doe@gmail.com', '2018-01-02');
 INSERT INTO clientes (region_id, nombre, apellido, email, create_at) VALUES(1, 'Linus', 'Torvalds', 'linus.torvalds@gmail.com', '2018-01-03');
 INSERT INTO clientes (region_id, nombre, apellido, email, create_at) VALUES(2, 'Rasmus', 'Lerdorf', 'rasmus.lerdorf@gmail.com', '2018-01-04');
@@ -33,7 +33,7 @@ INSERT INTO clientes (region_id, nombre, apellido, email, create_at) VALUES(6, '
 INSERT INTO clientes (region_id, nombre, apellido, email, create_at) VALUES(6, 'Tornado', 'Roe', 'tornado.roe@gmail.com', '2018-03-05');
 INSERT INTO clientes (region_id, nombre, apellido, email, create_at) VALUES(6, 'Jade', 'Doe', 'jane.doe@gmail.com', '2018-03-06');
 
-INSERT INTO clientes (region_id, nombre, apellido, email, create_at) VALUES(4, 'Andr√©s', 'Guzm√°n', 'profesor1@bolsadeideas.com', '2018-01-01');
+INSERT INTO clientes (region_id, nombre, apellido, email, create_at) VALUES(4, 'AndrÈs', 'Guzm·n', 'profesor1@bolsadeideas.com', '2018-01-01');
 INSERT INTO clientes (region_id, nombre, apellido, email, create_at) VALUES(4, 'Mr. John', 'Doe', 'john.doe1@gmail.com', '2018-01-02');
 INSERT INTO clientes (region_id, nombre, apellido, email, create_at) VALUES(4, 'Linus', 'Torvalds', 'linus.torvalds1@gmail.com', '2018-01-03');
 INSERT INTO clientes (region_id, nombre, apellido, email, create_at) VALUES(2, 'Rasmus', 'Lerdorf', 'rasmus.lerdorf1@gmail.com', '2018-01-04');
@@ -48,7 +48,7 @@ INSERT INTO clientes (region_id, nombre, apellido, email, create_at) VALUES(7, '
 
 /* Populate tabla productos */
 INSERT INTO productos(nombre, precio, create_at) VALUES('Panasonic Pantalla LCD', 890, NOW());
-INSERT INTO productos(nombre, precio, create_at) VALUES('Sony C√°mara Digital DSC-W320B', 350, NOW());
+INSERT INTO productos(nombre, precio, create_at) VALUES('Sony C·mara Digital DSC-W320B', 350, NOW());
 INSERT INTO productos(nombre, precio, create_at) VALUES('Apple iPod Shuffle', 2500, NOW());
 INSERT INTO productos(nombre, precio, create_at) VALUES('Sony Noteboo Z110', 3200, NOW());
 INSERT INTO productos(nombre, precio, create_at) VALUES('Hewlett Packard Multifuncional F2280', 1500, NOW());
@@ -62,6 +62,6 @@ INSERT INTO facturas_items(cantidad, factura_id, producto_id) VALUES(2,1,4);
 INSERT INTO facturas_items(cantidad, factura_id, producto_id) VALUES(1,1,5);
 INSERT INTO facturas_items(cantidad, factura_id, producto_id) VALUES(1,1,7);
 
-INSERT INTO facturas(descripcion, observacion, cliente_id, create_at) VALUES('Factura Bicicleta', 'El precio est√° fue con descuento', 1, NOW());
+INSERT INTO facturas(descripcion, observacion, cliente_id, create_at) VALUES('Factura Bicicleta', 'El precio de la compra fue con descuento', 1, NOW());
 INSERT INTO facturas_items(cantidad, factura_id, producto_id) VALUES(3,2,6);
 
